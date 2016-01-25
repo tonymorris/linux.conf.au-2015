@@ -1,0 +1,85 @@
+\begin{frame}[fragile]
+\frametitle{The Limits of Parametricity}
+\begin{lstlisting}
+<A> List<A> function(List<A>)
+\end{lstlisting}
+OK, so we know that all elements in the result appear in the input
+\begin{itemize}
+ \item but how do we narrow it down?
+ \item how do we rule out all possibilities for the type but one?
+ \item how do we unambiguously determine what the function does?
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{The Limits of Parametricity}
+\begin{block}{what does this function do?}
+\lstinputlisting[style=haskell]{source/reverse-with-tests.hs}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Once-inhabitance}
+\begin{block}{sometimes tests are unnecessary}
+\begin{lstlisting}[style=haskell]
+f :: a -> a
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Once-inhabitance}
+\begin{block}{sometimes tests are unnecessary}
+\begin{lstlisting}[style=haskell]
+g :: Functor f => y -> f x -> f y
+\end{lstlisting}
+\end{block}
+\begin{lstlisting}[style=haskell]
+> g "hi" [1,2,3]
+["hi","hi","hi"]
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Parametricity}
+\begin{block}{non-trivial example}
+\begin{lstlisting}[style=haskell]
+both ::
+  (Applicative f, Bitraversable r) =>
+  (a -> f b) -> r a a -> f (r b b)
+\end{lstlisting}
+\end{block}
+\begin{itemize}
+  \item<1-> This function can only \lstinline{bitraverse} \footnote{(and derivatives)} on \lstinline{(r)}
+  \begin{itemize}
+    \item will work with \lstinline{Either} at call site
+    \item will work with \lstinline{(,)} at call site
+    \item will work with \lstinline{Const} at call site
+    \item \textbf{but \lstinline{both} cannot do anything specific to these data types}
+  \end{itemize}
+  \item<2-> This function can only \lstinline{(<*>)} and \lstinline{pure} on \lstinline{(f)}
+  \begin{itemize}
+    \item will work with \lstinline{Maybe} at call site
+    \item will work with \lstinline{IO} at call site
+    \item e.g. call site can open network connections using \lstinline{both}
+    \item \textbf{however \lstinline{both} definitely does not open any network connections itself}
+  \end{itemize}
+  \item<3-> \lstinline{(a)} and \lstinline{(b)} might be anything
+  \begin{itemize}
+    \item may be \lstinline{Int} at call site
+    \item may be \lstinline{String} at call site
+    \item \textbf{however \lstinline{both} definitely does not perform any \lstinline{Int}-specific operations}
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Parametricity}
+\begin{block}{and on it goes}
+\begin{lstlisting}[style=haskell]
+(<.) ::
+  Indexable i p =>
+  (Indexed i s t -> r) -> ((a -> b) -> s -> t) -> p a b -> r
+\end{lstlisting}
+\end{block}
+\end{frame}

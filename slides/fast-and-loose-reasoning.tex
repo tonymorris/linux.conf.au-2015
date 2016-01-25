@@ -1,0 +1,33 @@
+\begin{frame}[fragile]
+\frametitle{Fast and Loose Reasoning}
+\begin{lstlisting}
+int even(boolean p) =
+  ...
+\end{lstlisting}
+This function returns one of two things.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Fast and Loose Reasoning}
+\begin{lstlisting}[style=scala]
+int even(boolean p) =
+  even(p)
+\end{lstlisting}
+and we can discard this third possibility in analysis.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Fast and Loose Reasoning}
+\begin{block}{many programming environments involve}
+\begin{itemize}
+  \item \lstinline{null}
+  \item exceptions
+  \item Type-casing
+  \item Type-casting
+  \item Side-effects \footnote{but FP has won}
+  \item universal \lstinline{equals}/\lstinline{toString}
+\end{itemize}
+\end{block}
+These must \emph{all be discarded}.
+\end{frame}
+
