@@ -1,7 +1,7 @@
 \begin{frame}[fragile]
 \frametitle{Fast and Loose Reasoning}
 \begin{lstlisting}
-int even(boolean p) =
+boolean even(int i) =
   ...
 \end{lstlisting}
 This function returns one of two things.
@@ -10,8 +10,8 @@ This function returns one of two things.
 \begin{frame}[fragile]
 \frametitle{Fast and Loose Reasoning}
 \begin{lstlisting}[style=scala]
-int even(boolean p) =
-  even(p)
+boolea even(int i) =
+  even(i)
 \end{lstlisting}
 and we can discard this third possibility in analysis.
 \end{frame}
