@@ -50,26 +50,27 @@ both ::
   (a -> f b) -> r a a -> f (r b b)
 \end{lstlisting}
 \end{block}
+\tiny
 \begin{itemize}
-  \item<1-> This function can only \lstinline{bitraverse} \footnote{(and derivatives)} on \lstinline{(r)}
+  \item<1-> This function can only \lstinline{bitraverse} \footnote{(and derivatives)} on \lstinline{(`r`)}
   \begin{itemize}
-    \item will work with \lstinline{Either} at call site
-    \item will work with \lstinline{(,)} at call site
-    \item will work with \lstinline{Const} at call site
-    \item \textbf{but \lstinline{both} cannot do anything specific to these data types}
+    \item \tiny{will work with \lstinline{Either} at call site}
+    \item \tiny{will work with \lstinline{(,)} at call site}
+    \item \tiny{will work with \lstinline{Const} at call site}
+    \item \tiny{\textbf{but \lstinline{both} cannot do anything specific to these data types}}
   \end{itemize}
-  \item<2-> This function can only \lstinline{(<*>)} and \lstinline{pure} on \lstinline{(f)}
+  \item<2-> This function can only \lstinline{(<*>)} and \lstinline{pure} on \lstinline{(`f`)}
   \begin{itemize}
-    \item will work with \lstinline{Maybe} at call site
-    \item will work with \lstinline{IO} at call site
-    \item e.g. call site can open network connections using \lstinline{both}
-    \item \textbf{however \lstinline{both} definitely does not open any network connections itself}
+    \item \tiny{will work with \lstinline{Maybe} at call site}
+    \item \tiny{will work with \lstinline{IO} at call site}
+    \item \tiny{e.g. call site can open network connections using \lstinline{both}}
+    \item \tiny{\textbf{however \lstinline{both} definitely does not open any network connections itself}}
   \end{itemize}
-  \item<3-> \lstinline{(a)} and \lstinline{(b)} might be anything
+  \item<3-> \lstinline{(`a`)} and \lstinline{(`b`)} might be anything
   \begin{itemize}
-    \item may be \lstinline{Int} at call site
-    \item may be \lstinline{String} at call site
-    \item \textbf{however \lstinline{both} definitely does not perform any \lstinline{Int}-specific operations}
+    \item \tiny{may be \lstinline{Int} at call site}
+    \item \tiny{may be \lstinline{String} at call site}
+    \item \tiny{\textbf{however \lstinline{both} definitely does not perform any \lstinline{Int}-specific operations}}
   \end{itemize}
 \end{itemize}
 \end{frame}
